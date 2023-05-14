@@ -1,0 +1,10 @@
+<!-- app/views/users/show.html.erb -->
+<div class="container d-flex justify-content-center align-items-center">
+  <h1 class="text-center" style = "padding-top:100px">Do you know your stuff?</h1>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center" style = "margin-top:100px">
+  <%= form_with(model: [@user], local: true) do |form| %>
+    <%= form.submit "Start", class: "btn btn-primary" %>
+  <% end %>
+</div>

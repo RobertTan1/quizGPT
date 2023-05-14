@@ -1,0 +1,105 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital@1&display=swap');
+    .custom-radio .form-check-input {
+      /* width: 15px; */
+      /* height: 15px; */
+      background-color: #f8f9fa;
+      border: 2px solid;
+      margin-right: 2px
+    }
+
+    .custom-radio .form-check-input:checked {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+.spin-logo {
+    display: none;
+    width: 30px;
+    height: 30px;
+    background: image_path('open-ai-logo') no-repeat;
+    animation: spin 2s ease infinite ;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flavor-text {
+  font-family: 'Exo', sans-serif;
+  display:none;
+  font-size: 12px;
+  /* font-style: bold; */
+  padding-top:5px;
+}
+
+  </style>
+
+<% if @question.difficulty == 10 %>
+<div class = "container text-center" style = "padding-top:50px;">
+    <h3>Last Question!</h3>
+  </div>
+<%end%>
+
+  <div class = "container text-center" style = "padding-top: 50px; padding-bottom: 50px">
+    <h2><%= @question_text %></h2>
+  </div>
+
+
+
+
+<%= form_with(url: user_questions_path(@user), method: :post, local: true) do |form| %>
+<%= form.hidden_field :question_id, value: @question.id %>
+  <% @options.each_with_index do |option, index| %>
+    <div class="mb-3 text-center custom-radio">
+      <input class="form-check-input" type="radio" name="user_response_index" id="option<%= index + 1 %>" value="<%= index %>">
+      <label class="form-check-label" for="option<%= index + 1 %>"><%= option %></label>
+    </div>
+  <% end %>
+<div class="mb-3 text-center" , style = "padding-top:50px">
+  <%= form.submit "Submit", class: "btn btn-primary", id:"submit-answer-button", disabled: true do%>
+  </div>
+<% end %>
+  <div class="mb-3 text-center">
+  <%= image_tag 'open-ai-logo.png', class: 'spin-logo', id: 'spinner'%>
+    <p class="flavor-text" id = "flavor_text"> <%= @loading_text %></p>
+</div>
+
+
+<% end %>
+
+
+
+
+
+<script>
+document.addEventListener("mouseup", function() {
+  var submitButton = document.querySelector("#submit-answer-button");
+  var spinner = document.querySelector("#spinner");
+  var flavor = document.querySelector("#flavor_text");
+
+if (submitButton && spinner) {
+  submitButton.addEventListener("click", function() {
+    submitButton.style.display = "none"; // Hide the button
+    spinner.style.display = "block"; // Show the spinner
+    flavor.style.display="block"
+  })};
+});
+
+document.addEventListener('mouseup', function() {
+  let submitButton = document.getElementById('submit-answer-button');
+  let radioButtons = document.querySelectorAll('input[type="radio"]');
+
+  for (let i = 0; i < radioButtons.length; i++) {
+    radioButtons[i].addEventListener('change', function() {
+      if (this.checked) {
+        submitButton.disabled = false;
+      }
+    });
+  }
+});
+
+</script>

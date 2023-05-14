@@ -1,0 +1,36 @@
+
+<div class="container text-center" style = "padding-top:50px; padding-bottom:50px">
+  <h2>Your final score is <%= @score %> out of <%= @questions.count %>.</h2>
+  <h5 style ="padding-top:10px"><%= @feedback %></h5>
+  <%= link_to 'Play Again', root_path, class: 'btn btn-secondary', style: "margin-top:20px" %>
+</div>
+
+<table class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th scope="col" class="col-8">Question</th>
+      <th scope="col" class="col-4">Answers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr >
+
+    <td ><%= question.question %></td>
+    <td>
+          <% JSON.parse(question.options).each_with_index do |option, index| %>
+            <% if index == question.correct_answer_index %>
+              <p class="text-success"><strong><%= option %></strong></p>
+            <% elsif index == question.user_response_index %>
+              <p class="text-danger"><%= option %></p>
+            <% else %>
+              <p><%= option %></p>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%  %>

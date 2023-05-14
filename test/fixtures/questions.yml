@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  question_id: 1
+  question_sequence: 1
+  question: MyText
+  options: MyText
+  user_response_index: 1
+  correct_answer_index: 1
+  is_correct: false
+
+two:
+  user: two
+  question_id: 1
+  question_sequence: 1
+  question: MyText
+  options: MyText
+  user_response_index: 1
+  correct_answer_index: 1
+  is_correct: false
