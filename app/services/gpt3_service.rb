@@ -129,8 +129,8 @@ class Gpt3Service
     } there should be no additional text before or after this json output"
 
     body = {
-      "model" => "gpt-4",
-      # "model" => "gpt-3.5-turbo",
+#       "model" => "gpt-4",
+      "model" => "gpt-3.5-turbo",
       "messages" => [{"role": "user", "content": prompt}],
       "temperature" => 1,
       "n" => 1,
